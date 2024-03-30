@@ -1,61 +1,73 @@
 import { useState } from "react";
 import ListTasks from "../ListTasks";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
+import { format } from "date-fns";
 
 const ToDolist = () => {
 	const [tasks, setTasks] = useState([
 		{
 			id: 1,
+			createdDate: null,
 			name: "Tarefa com nome muito longo capaz de ocupar mais de uma linha",
 			completed: true,
 		},
 		{
 			id: 2,
+			createdDate: null,
 			name: "Tarefa 2",
 			completed: true,
 		},
 		{
 			id: 3,
+			createdDate: null,
 			name: "Tarefa 3",
 			completed: false,
 		},
 		{
 			id: 4,
+			createdDate: null,
 			name: "Tarefa 4",
 			completed: true,
 		},
 		{
 			id: 5,
+			createdDate: null,
 			name: "Tarefa 5",
 			completed: false,
 		},
 		{
 			id: 6,
+			createdDate: null,
 			name: "Tarefa 6",
 			completed: true,
 		},
 		{
 			id: 7,
+			createdDate: null,
 			name: "Tarefa 7",
 			completed: false,
 		},
 		{
 			id: 8,
+			createdDate: null,
 			name: "Tarefa 8",
 			completed: false,
 		},
 		{
 			id: 9,
+			createdDate: null,
 			name: "Tarefa 9",
 			completed: true,
 		},
 		{
 			id: 10,
+			createdDate: null,
 			name: "Tarefa 10",
 			completed: false,
 		},
 		{
 			id: 11,
+			createdDate: null,
 			name: "Tarefa 11",
 			completed: false,
 		},
@@ -91,6 +103,7 @@ const ToDolist = () => {
 				...tasks,
 				{
 					id: nextIdTask + 1,
+					createdDate: format(new Date(), "yyyy-MM-dd hh:mm:ss"),
 					name: valueNewTask,
 					completed: false,
 				},
@@ -105,6 +118,11 @@ const ToDolist = () => {
 		const indexTask = searchIndexTaskById(idTask);
 
 		newListTasks[indexTask].completed = completed;
+		newListTasks[indexTask] = {
+			...newListTasks[indexTask],
+			completedDate: completed ? format(new Date(), "yyyy-MM-dd hh:mm:ss") : null,
+		};
+
 		valueSearch == "" && newListTasks.push(newListTasks.splice(indexTask, 1)[0]);
 		setTasks(newListTasks);
 	};
@@ -148,7 +166,7 @@ const ToDolist = () => {
 						/>
 						<ListTasks
 							id="list-tasks-completed"
-							title="Concluídos"
+							title="Concluídas"
 							list={tasks.filter((task) => task.completed == true)}
 							handleAlterCompletedTask={handleAlterCompletedTask}
 							handleDeleteNewTask={handleDeleteNewTask}

@@ -16,9 +16,9 @@ const Tooltip = ({ children, content, disabled = false }) => {
 				<TooltipPrimitive.Portal>
 					<TooltipPrimitive.Content
 						sideOffset={1}
-						className="bg-blue-500 py-1.5 px-2.5 rounded-md max-w-72"
+						className="bg-blue-500 py-1.5 px-2.5 rounded-md max-w-72 text-white text-xs"
 					>
-						<span className="text-white text-xs block leading-4">{content}</span>
+						<span className="block leading-4">{content}</span>
 						<TooltipPrimitive.Arrow className="fill-current text-blue-500" width={8} height={4} />
 					</TooltipPrimitive.Content>
 				</TooltipPrimitive.Portal>
