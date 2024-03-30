@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ListTasks from "../ListTasks";
-import { X } from "@phosphor-icons/react";
+import { MagnifyingGlass, X } from "@phosphor-icons/react";
 
 const ToDolist = () => {
 	const [tasks, setTasks] = useState([
@@ -32,11 +32,6 @@ const ToDolist = () => {
 		{
 			id: 6,
 			name: "Tarefa 6",
-			completed: false,
-		},
-		{
-			id: 6,
-			name: "Tarefa 6",
 			completed: true,
 		},
 		{
@@ -59,12 +54,22 @@ const ToDolist = () => {
 			name: "Tarefa 10",
 			completed: false,
 		},
+		{
+			id: 11,
+			name: "Tarefa 11",
+			completed: false,
+		},
 	]);
 
 	const [valueNewTask, setValueNewTask] = useState("");
+	const [valueSearch, setValueSearch] = useState("");
 
 	const handleChangeInputNewTask = (e) => {
 		setValueNewTask(e.target.value);
+	};
+
+	const handleChangeInputSearch = (e) => {
+		setValueSearch(e.target.value);
 	};
 
 	const handleClearValueNewTask = () => {
@@ -91,6 +96,7 @@ const ToDolist = () => {
 				},
 			]);
 			setValueNewTask("");
+			setValueSearch("");
 		}
 	};
 
@@ -99,7 +105,7 @@ const ToDolist = () => {
 		const indexTask = searchIndexTaskById(idTask);
 
 		newListTasks[indexTask].completed = completed;
-		newListTasks.push(newListTasks.splice(indexTask, 1)[0]);
+		valueSearch == "" && newListTasks.push(newListTasks.splice(indexTask, 1)[0]);
 		setTasks(newListTasks);
 	};
 
@@ -109,20 +115,46 @@ const ToDolist = () => {
 
 	return (
 		<div className="bg-white max-w-md w-full py-5 px-6 shadow-md rounded-xl">
-			<h2 className="text-blue-500 text-3xl font-bold mb-4">Criador de tarefas</h2>
-			<div className="mb-7 space-y-7">
-				<ListTasks
-					title="Pendentes"
-					list={tasks.filter((task) => task.completed == false)}
-					handleAlterCompletedTask={handleAlterCompletedTask}
-					handleDeleteNewTask={handleDeleteNewTask}
+			<h2 className="text-blue-500 text-3xl font-bold mb-2">Criador de tarefas</h2>
+			<div className="flex items-center mb-6 rounded-sm bg-neutral-50 border border-neutral-200 focus-within:outline-none focus-within:border-neutral-300 focus-within:shadow-sm transition">
+				<div className="pl-2.5 pr-0.5 text-neutral-400">
+					<MagnifyingGlass size={13} />
+				</div>
+				<input
+					className="flex-1 py-2 pr-3 pl-1.5 text-base bg-transparent focus:outline-none text-neutral-500 placeholder:text-neutral-300"
+					type="text"
+					value={valueSearch}
+					placeholder="Pesquisa por tasks"
+					onChange={handleChangeInputSearch}
 				/>
-				<ListTasks
-					title="Concluídos"
-					list={tasks.filter((task) => task.completed == true)}
-					handleAlterCompletedTask={handleAlterCompletedTask}
-					handleDeleteNewTask={handleDeleteNewTask}
-				/>
+			</div>
+			<div className="mb-8 space-y-7">
+				{valueSearch != "" ? (
+					<ListTasks
+						id="list-tasks-search"
+						list={tasks.filter((task) => task.name.includes(valueSearch))}
+						search={valueSearch}
+						handleAlterCompletedTask={handleAlterCompletedTask}
+						handleDeleteNewTask={handleDeleteNewTask}
+					/>
+				) : (
+					<>
+						<ListTasks
+							id="list-tasks-pending"
+							title="Pendentes"
+							list={tasks.filter((task) => task.completed == false)}
+							handleAlterCompletedTask={handleAlterCompletedTask}
+							handleDeleteNewTask={handleDeleteNewTask}
+						/>
+						<ListTasks
+							id="list-tasks-completed"
+							title="Concluídos"
+							list={tasks.filter((task) => task.completed == true)}
+							handleAlterCompletedTask={handleAlterCompletedTask}
+							handleDeleteNewTask={handleDeleteNewTask}
+						/>
+					</>
+				)}
 			</div>
 			<div className="flex flex-col space-y-3">
 				<div className="flex rounded-sm bg-neutral-50 border border-neutral-200 focus-within:outline-none focus-within:border-neutral-300 focus-within:shadow-sm transition">

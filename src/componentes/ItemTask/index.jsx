@@ -2,9 +2,17 @@ import { Check, X } from "@phosphor-icons/react";
 import Tooltip from "../Tooltip";
 import { useEffect, useRef, useState } from "react";
 
-const ItemTask = ({ id, name, check, handleAlterCompletedTask, handleDeleteNewTask }) => {
+const ItemTask = ({
+	id,
+	name,
+	check,
+	searchTerm,
+	handleAlterCompletedTask,
+	handleDeleteNewTask,
+}) => {
 	const nameTaskRef = useRef(null);
 	const [lineClamp, setLineClamp] = useState(false);
+	const regexSearchTerm = new RegExp(searchTerm, "gi");
 
 	useEffect(() => {
 		setLineClamp(
@@ -34,7 +42,20 @@ const ItemTask = ({ id, name, check, handleAlterCompletedTask, handleDeleteNewTa
 							lineClamp ? "line-clamp-1" : "overflow-hidden text-nowrap"
 						}`}
 					>
-						{name}
+						{searchTerm && name.split(regexSearchTerm)?.length > 0
+							? name.split(regexSearchTerm).map((part, index) => {
+									return index > 0 ? (
+										<>
+											<span className="font-semibold text-blue-500">
+												{name.match(regexSearchTerm)?.[0] || ""}
+											</span>
+											{part}
+										</>
+									) : (
+										part
+									);
+							  })
+							: name}
 					</span>
 				</Tooltip>
 			</div>
