@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ListTasks from "../ListTasks";
+import { X } from "@phosphor-icons/react";
 
 const ToDolist = () => {
 	const [tasks, setTasks] = useState([
@@ -66,6 +67,10 @@ const ToDolist = () => {
 		setValueNewTask(e.target.value);
 	};
 
+	const handleClearValueNewTask = () => {
+		setValueNewTask("");
+	};
+
 	const handleDeleteNewTask = (idTask) => {
 		let newListTasks = [...tasks];
 		const indexTask = searchIndexTaskById(idTask);
@@ -120,13 +125,24 @@ const ToDolist = () => {
 				/>
 			</div>
 			<div className="flex flex-col space-y-3">
-				<input
-					className="border border-neutral-200 py-2 px-3 rounded-sm text-base text-neutral-500 bg-neutral-50 placeholder:text-neutral-300 focus:outline-none focus:border-neutral-300 focus:shadow-sm transition"
-					type="text"
-					value={valueNewTask}
-					placeholder="Digite aqui sua task"
-					onChange={handleChangeInputNewTask}
-				/>
+				<div className="flex rounded-sm bg-neutral-50 border border-neutral-200 focus-within:outline-none focus-within:border-neutral-300 focus-within:shadow-sm transition">
+					<input
+						className="flex-1 py-2 px-3 text-base bg-transparent focus:outline-none text-neutral-500 placeholder:text-neutral-300"
+						type="text"
+						value={valueNewTask}
+						placeholder="Digite aqui sua task"
+						onChange={handleChangeInputNewTask}
+					/>
+					{valueNewTask !== "" && (
+						<button
+							className="block h-auto p-2.5 text-neutral-400 hover:text-neutral-300 transition"
+							type="button"
+							onClick={handleClearValueNewTask}
+						>
+							<X size={13} />
+						</button>
+					)}
+				</div>
 				<button
 					className={` text-white p-2.5 text-base font-semibold rounded-sm transition ${
 						valueNewTask == ""

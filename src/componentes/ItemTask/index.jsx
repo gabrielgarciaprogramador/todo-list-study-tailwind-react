@@ -14,7 +14,9 @@ const ItemTask = ({ id, name, check, handleAlterCompletedTask, handleDeleteNewTa
 				>
 					{check && <Check size={14} weight="bold" />}
 				</div>
-				<span className="text-neutral-500 cursor-default text-sm">{name}</span>
+				<span className={`text-neutral-500 cursor-default text-sm ${check ? "line-through" : ""}`}>
+					{name}
+				</span>
 			</div>
 			<button
 				type="button"
