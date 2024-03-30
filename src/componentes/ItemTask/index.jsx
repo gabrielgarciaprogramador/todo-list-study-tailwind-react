@@ -45,12 +45,12 @@ const ItemTask = ({
 						{searchTerm && name.split(regexSearchTerm)?.length > 0
 							? name.split(regexSearchTerm).map((part, index) => {
 									return index > 0 ? (
-										<>
+										<span key={index}>
 											<span className="font-semibold text-blue-500">
 												{name.match(regexSearchTerm)?.[0] || ""}
 											</span>
 											{part}
-										</>
+										</span>
 									) : (
 										part
 									);
