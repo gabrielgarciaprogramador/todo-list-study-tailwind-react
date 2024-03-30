@@ -6,7 +6,7 @@ const ToDolist = () => {
 	const [tasks, setTasks] = useState([
 		{
 			id: 1,
-			name: "Tarefa 1",
+			name: "Tarefa com nome muito longo capaz de ocupar mais de uma linha",
 			completed: true,
 		},
 		{
