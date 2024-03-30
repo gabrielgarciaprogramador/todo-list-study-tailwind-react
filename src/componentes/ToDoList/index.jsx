@@ -28,6 +28,36 @@ const ToDolist = () => {
 			name: "Tarefa 5",
 			completed: false,
 		},
+		{
+			id: 6,
+			name: "Tarefa 6",
+			completed: false,
+		},
+		{
+			id: 6,
+			name: "Tarefa 6",
+			completed: true,
+		},
+		{
+			id: 7,
+			name: "Tarefa 7",
+			completed: false,
+		},
+		{
+			id: 8,
+			name: "Tarefa 8",
+			completed: false,
+		},
+		{
+			id: 9,
+			name: "Tarefa 9",
+			completed: true,
+		},
+		{
+			id: 10,
+			name: "Tarefa 10",
+			completed: false,
+		},
 	]);
 
 	const [valueNewTask, setValueNewTask] = useState("");
